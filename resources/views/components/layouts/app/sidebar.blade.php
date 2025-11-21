@@ -13,7 +13,21 @@
 
             <flux:navlist variant="outline">
                 <flux:navlist.group :heading="__('Platform')" class="grid">
-                    <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
+
+                    <flux:navlist.item icon="home" 
+                        :href="route('dashboard')" 
+                        :current="request()->routeIs('dashboard')" 
+                        wire:navigate>{{ __('Dashboard') }}
+                    </flux:navlist.item>
+
+                    <flux:navlist.item 
+                        icon="book-open" 
+                        :href="route('courses.index')" 
+                        :current="request()->routeIs('course.*')" 
+                        wire:navigate>
+                        {{ __('Course') }}
+                    </flux:navlist.item>
+
                 </flux:navlist.group>
             </flux:navlist>
 
@@ -126,6 +140,14 @@
         </flux:header>
 
         {{ $slot }}
+
+        <!-- Place the Edit Student Modal here, outside of the slot, sibling to sidebar and main -->
+    <div id="editStudentModal" class="fixed inset-0 z-[9999] hidden items-center justify-center bg-black/50">
+        <div class="w-full max-w-2xl rounded-xl border border-neutral-200 bg-white p-6 dark:border-neutral-700 dark:bg-neutral-800">
+            <!-- Modal content will be injected from dashboard -->
+            @yield('edit-student-modal')
+        </div>
+    </div>
 
         @fluxScripts
     </body>
